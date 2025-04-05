@@ -1,4 +1,4 @@
-# 📧 Sendly – Smart Email Automation Platform
+# 📧 Sendly[https://sendly-six.vercel.app/] – Smart Email Automation Platform
 
 **Sendly** is a full-featured email automation platform where users can **send emails to multiple recipients with one click**, **schedule emails**, and **visually create email flows** using a flowchart-style interface powered by **React Flow**. Built with the **MERN stack**, it includes authentication, scheduling, and real-time feedback on email actions.
 
