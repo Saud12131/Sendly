@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: 'https://sendly-six.vercel.app',
+     origin: ['https://sendly-six.vercel.app', 'http://localhost:5173'],
     credentials: true,
   })
 );
