@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'; 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
@@ -6,6 +6,7 @@ import { BACKEND_URL } from '../backendurl';
 
 const Signup = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = e =>
@@ -13,13 +14,16 @@ const Signup = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const res = await axios.post(`/${BACKEND_URL}/signup`, formData);
+      const res = await axios.post(`${BACKEND_URL}/signup`, formData);
       localStorage.setItem('token', res.data.token);
       alert(res.data.msg);
       navigate('/');
     } catch (err) {
-      alert(err.response.data.msg);
+      alert(err.response?.data?.msg || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,9 +57,14 @@ const Signup = () => {
           />
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-3 rounded-md font-medium hover:bg-indigo-700 transition"
+            disabled={loading}
+            className={`w-full py-3 rounded-md font-medium transition ${
+              loading
+                ? 'bg-indigo-400 cursor-not-allowed'
+                : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+            }`}
           >
-            Sign Up
+            {loading ? 'Signing up...' : 'Sign Up'}
           </button>
         </form>
         <button
