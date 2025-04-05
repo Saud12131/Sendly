@@ -6,6 +6,7 @@ import { BACKEND_URL } from '../backendurl';
 
 const Signin = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = e =>
@@ -13,13 +14,16 @@ const Signin = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post(`${BACKEND_URL}/signin`, formData);
       localStorage.setItem('token', res.data.token);
       alert('Signed in successfully!');
       navigate('/');
     } catch (err) {
-      alert(err.response.data.msg);
+      alert(err.response?.data?.msg || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -27,8 +31,8 @@ const Signin = () => {
     setFormData({
       email: "saudsayyed@gmail.com",
       password: "saud"
-    })
-  }
+    });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 px-4">
@@ -55,14 +59,18 @@ const Signin = () => {
           />
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-3 rounded-md font-medium hover:bg-indigo-700 transition"
+            disabled={loading}
+            className={`w-full py-3 rounded-md font-medium transition ${
+              loading
+                ? 'bg-indigo-400 cursor-not-allowed'
+                : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+            }`}
           >
-            Sign In
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
-
         </form>
         <button
-          type="submit"
+          type="button"
           className="w-full bg-red-600 text-white py-3 rounded-md font-medium hover:bg-red-700 transition mt-1.5"
           onClick={handlelogincred}
         >
