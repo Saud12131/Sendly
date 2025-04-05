@@ -1,0 +1,1 @@
+export const BACKEND_URL = 'https://sendly-8xbk.onrender.com'

@@ -4,6 +4,7 @@ import '@xyflow/react/dist/style.css';
 import CustomNode from '../components/customnode';
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import { BACKEND_URL } from '../backendurl';
 const leads = [
     ["saudsayyedofficial@gmail.com", "saudsayyed59@gmail.com"]
 ];
@@ -111,7 +112,7 @@ export default function FlowChart() {
         if (selectedScheduleTime) {
             setIschdule(false);
             try {
-                const res = await axios.post("http://localhost:3000/schedule-email-once",
+                const res = await axios.post(`${BACKEND_URL}/schedule-email-once`,
                     {
                         emails,
                         scheduleTime: JSON.parse(selectedScheduleTime).value,

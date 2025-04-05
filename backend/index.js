@@ -10,7 +10,12 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://sendly-six.vercel.app',
+    credentials: true,
+  })
+);
 
 // Nodemailer Transporter
 const transporter = nodemailer.createTransport({

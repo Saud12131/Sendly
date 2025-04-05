@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../backendurl';
 
 const Signin = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -13,7 +14,7 @@ const Signin = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/signin', formData);
+      const res = await axios.post(`${BACKEND_URL}/signin`, formData);
       localStorage.setItem('token', res.data.token);
       alert('Signed in successfully!');
       navigate('/');
@@ -49,7 +50,7 @@ const Signin = () => {
             placeholder="Password"
             onChange={handleChange}
             required
-            value={formData.password} 
+            value={formData.password}
             className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
           />
           <button
